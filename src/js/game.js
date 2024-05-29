@@ -1,132 +1,20 @@
 import '../css/style.css'
-import { Actor, Engine, Vector, Label, Font, FontUnit, SolverStrategy } from "excalibur"
+import { Actor, Engine, Vector, Label, Font, FontUnit, SolverStrategy, } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
-import { vector } from 'excalibur/build/dist/Util/DrawUtil.js'
-import { Hero } from './hero.js';
-import { Ground } from './ground.js';
-import { Spikes } from './spikes.js';
-import { Coin } from "./coin.js"
-import { Stonewall } from './stone.js';
-import { Finishline } from "./finishline.js";
+import { Level1} from './level1.js'
+import { Intro } from './intro.js'
+import { Endscene } from "./endscene.js";
+
+
 
 
 export class Game extends Engine {
 
-    
-    mylabel
-    
-                
-
-    spawnHero() {
-        const hero = new Hero();
-        this.add(hero);
-    }
-
-    spawnGround(amount = 5, startX = 0, startY = 700, spacing = 52.5) {
-        for (let i = 0; i < amount; i++) {
-            const ground = new Ground(startX + i * spacing, startY);
-            this.add(ground);
-        }
-    }
-
-    
-    spawnVerticalGround(amount = 2, startX = 600, startY = 394, spacing = 52.5){
-        for (let i = 0; i < amount; i++) {
-            const StoneWall = new Stonewall( startX,i * spacing + startY);
-            this.add(StoneWall);
-        }
-    }
-
-    spawnSpikes(amount = 15, startX = 285, startY = 700, spacing = 98.7) {
-        for (let i = 0; i < amount; i++) {
-            const spikes = new Spikes(startX + i* spacing, startY);
-            this.add(spikes);
-        }
-    }
-
-    spawnVerticalSpikes(amount = 2, startX = 955, startY = 477, spacing = 90, rotation = Math.PI / 2){ // math.pi/2 is punten naar rechts en -2 naar links.
-        for (let i = 0; i < amount; i++) {
-            const spikes = new Spikes(startX, i* spacing + startY);
-            spikes.rotation = rotation;
-            this.add(spikes);
-        }
-    }
-
-    spawnCoin(x, y){
-        const coin = new Coin(x, y)
-        this.add(coin);
-    }
-
-    addScore() {
-        this.score++
-        this.mylabel.text = `Score: ${this.score}`
-    }
-
-    spawnFinishLine(amount = 0, startX = 0, startY = 0, spacing = 0) {
-        for (let i = 0; i < amount; i++) {
-            const finishline = new Finishline(startX + i * spacing, startY);
-            this.add(finishline);
-        }
-    }
-
-    spawnedElements(){
-        this.spawnHero();
-        this.spawnCoin(200, 620); // de eerste coin van het level
-        this.spawnGround(); // het start platform
-        this.spawnGround(2, 310, 600, 52.5) // de 2 zwevende blokken aan het begen van het level.
-        this.spawnGround(8, 495, 505, 52.5) // platform waar de spikes bovenop staan
-        this.spawnGround(1, 750, 290, 52.5) // blok boven het spike platform
-        this.spawnGround(1, 585, 160,) //het platform om de sprong naar het grote platform links boven te komen
-        this.spawnGround(9, -28, 139, 52.5) //platform linksboven
-        this.spawnCoin(40, 80) //coin links boven op het platform
-        this.spawnCoin(90, 80) //coin links boven op het platform
-        this.spawnCoin(140, 80) //coin links boven op het platform
-        this.spawnCoin(190, 80) //coin links boven op het platform
-        this.spawnCoin(240, 80) //coin links boven op het platform
-        this.spawnCoin(290, 80) //coin links boven op het platform
-        this.spawnCoin(340, 80) //coin links boven op het platform
-        this.spawnGround(2, 890, 399, 52.5) //de blokken boven de 2e stenen muur
-        this.spawnCoin(950, 330) // coin boven de 2 stenen muur
-        this.spawnVerticalSpikes()
-        this.spawnGround(4, 1215, 540,)
-       
         
-        this.spawnGround(1, 1500, 400,)
-        this.spawnGround(1, 1350, 265,)
-        this.spawnGround(3, 1125, 120,)
-        
-        this.spawnSpikes(1, 1150, 65, 80)
-        this.spawnCoin(1230 , 50)
-        this.spawnSpikes(); // de spikes die over de gele onderkant van de map lopen
-        this.spawnVerticalGround(5, 1366, 600,)
-        this.spawnVerticalGround(20, 1564, 0)
-        
-        this.spawnVerticalSpikes(3, 1490, 480, 98.7, Math.PI / -2)
-        this.spawnVerticalGround(5, 1540, 460,)
-        this.spawnVerticalGround(2, 1431, 680)
-        this.spawnCoin(1430, 610)
-        this.spawnVerticalGround(2, 1496, 680)
-        this.spawnGround(30, 0, 760, 52.5); //grond onder de spikes
-        this.spawnSpikes(1, 580, 450, 98.7); // de spike die links van de 1e stenenmuur staat
-        this.spawnSpikes(3, 627, 450, 98.7) // spikes die rechts van de eerste stenen muur staan boven op het platform
-        this.spawnVerticalGround(); // de eerste stenenmuur
-        this.spawnCoin(600, 320) //  de coin die op de tweede stenenmuur staat.
-        this.spawnVerticalGround(5, 897, 458, 47); // de tweede stenenmuur
-        this.spawnGround(5, 956, 646,)
-        this.spawnCoin(1050, 570)
-        this.spawnVerticalGround(7, 1200, 540, 60) // de derde stenenmuur
-        this.spawnVerticalSpikes(1, 1142, 565, 100, Math.PI / -2)
-        this.spawnCoin(1200, 470) // de coin die op de laatste stenen muur staat
-        this.spawnGround(3, 1490, 140)
-        this.spawnFinishLine(1, 1510, 140, )
-    }
-        
-    
     constructor() {
-        
         const options = {
             width: 1530, height: 725,
-            physics: { solver: SolverStrategy.Arcade, gravity: new Vector(0, 800),}
+            physics: { solver: SolverStrategy.Arcade, gravity: new Vector(0, 800), }
         };
 
         super(options)
@@ -134,27 +22,24 @@ export class Game extends Engine {
         this.score = 0;
         this.start(ResourceLoader).then(() => this.startGame())
     }
+        
+        
+
 
     onInitialize(engine) {
-        console.log("initializing game");
         
-        this.spawnedElements();
     }
 
     startGame() {
-        console.log("start de game!")
-        this.score
-        this.mylabel = new Label({
-            text: `SCORE: ${this.score}`,
-            pos: new Vector(10, 10),
-            font: new Font({
-                family: 'impact',
-                unit: FontUnit.Px,
-                size: 40,
-            })
-        })
-        this.add(this.mylabel)
+
+        console.log("Starting game");
+        this.add('intro', new Intro)
+        this.add('level', new Level1)
+        this.add('endscene', new Endscene)
+        this.goToScene('intro');
+
     }
+
 }
     
 

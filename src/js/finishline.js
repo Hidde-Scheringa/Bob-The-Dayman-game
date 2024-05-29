@@ -10,7 +10,7 @@ export class Finishline extends Actor {
 
     onInitialize(engine) {
         this.graphics.use(Resources.Finishline.toSprite());
-        this.scale = new Vector(0.17, 0.23)
+        this.scale = new Vector(0.285, 0.1)
 
     }
 }

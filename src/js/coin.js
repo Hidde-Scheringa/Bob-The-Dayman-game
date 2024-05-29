@@ -30,14 +30,14 @@ export class Coin extends Actor {
     }
 
     resetPosition() {
-        this.scene.engine.scoreUpdate()
+        this.scene.engine.currentScene.scoreUpdate()
     }
 
     collectCoin(event) {
         const target = event.other;
         if (target instanceof Hero) {
             console.log('Je hebt een coin gepakt')
-            this.scene.engine.addScore();
+            this.scene.engine.currentScene.addScore();
             this.kill()
         }
     }

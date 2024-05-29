@@ -6,8 +6,10 @@ const Resources = {
     Spikes: new ImageSource('images/spikes.png'),
     Coin: new ImageSource('images/coin_sprite.png'),
     Stonewall: new ImageSource('images/stone-tile.jpg'),
-    Finishline: new ImageSource('images/finishline-tile.jpg')
-    
+    Finishline: new ImageSource('images/finishline-tile.jpg'),
+    Introscreen: new ImageSource('images/introscreen.png'),
+    Ensscreen: new ImageSource('images/endscreen.png'),
+    Daymanhat: new ImageSource('images/Dayman-hat.png'),
 
 }
 
